@@ -1,11 +1,11 @@
-rm(list=ls())     # º¯¼ö ´ÙÁö¿ì±â
+rm(list=ls())     # ???? ????????
 
 rm('bp1','bp2','bp3','bpt','bp2','data1','data2','data3','data4')
 
-RAW_Demo<-read.table("C://Users//Administrator//Desktop//¿øÈñ//´ëÇÐ±³//Lpoint°ø¸ðÀü//data//Demo.txt",header=TRUE,sep=",",colClasses=c('character'))
-RAW_ShpInfo<-read.table("C://Users//Administrator//Desktop//¿øÈñ//´ëÇÐ±³//Lpoint°ø¸ðÀü//data//¼îÇÎ¾÷Á¾»óÇ°±¸¸ÅÁ¤º¸.txt",header=TRUE,sep=",",colClasses=c('character','character','character','character','character','character','character','integer','integer'))
-RAW_EXShpInfo<-read.table("C://Users//Administrator//Desktop//¿øÈñ//´ëÇÐ±³//Lpoint°ø¸ðÀü//data//¼îÇÎ¿Ü¾÷Á¾ÀÌ¿ëÁ¤º¸.txt",header=TRUE,sep=",",colClasses=c('character','character','character','integer','integer'))
-RAW_ProdInfo<-read.table("C://Users//Administrator//Desktop//¿øÈñ//´ëÇÐ±³//Lpoint°ø¸ðÀü//data//¼îÇÎ¾÷Á¾»óÇ°ºÐ·ùÁ¤º¸.txt",header=TRUE,sep=",",colClasses=c('character'))
+RAW_Demo<-read.table("C://Users//Administrator//Desktop//????//???Ð±?//Lpoint??????//data//Demo.txt",header=TRUE,sep=",",colClasses=c('character'))
+RAW_ShpInfo<-read.table("C://Users//Administrator//Desktop//????//???Ð±?//Lpoint??????//data//???Î¾?ï¿½ï¿½??Ç°????ï¿½ï¿½??.txt",header=TRUE,sep=",",colClasses=c('character','character','character','character','character','character','character','integer','integer'))
+RAW_EXShpInfo<-read.table("C://Users//Administrator//Desktop//????//???Ð±?//Lpoint??????//data//???Î¿Ü¾?ï¿½ï¿½?Ì¿?ï¿½ï¿½??.txt",header=TRUE,sep=",",colClasses=c('character','character','character','integer','integer'))
+RAW_ProdInfo<-read.table("C://Users//Administrator//Desktop//????//???Ð±?//Lpoint??????//data//???Î¾?ï¿½ï¿½??Ç°?Ð·?ï¿½ï¿½??.txt",header=TRUE,sep=",",colClasses=c('character'))
 
 
 ###########
@@ -46,14 +46,14 @@ DATA_ID <- subset(RAW_Demo,select = 'ID')
 
 for (j in 1:nrow(DATA_ID))
 {
-  samp_EXSHP<-subset(RAW_EXShpInfo,ID == DATA_ID[j,1])    # RAW_EXShpInfo¿¡¼­ ID°¡ 05072ÀÎ DATA¸¸ »Ì¾Æ³»±â
+  samp_EXSHP<-subset(RAW_EXShpInfo,ID == DATA_ID[j,1])    # RAW_EXShpInfo???? ID?? 05072?? DATA?? ?Ì¾Æ³???
   
-  #  samp_EXSHP<-samp_EXSHP[order(-samp_EXSHP$U_AM),]    # samp_EXSHP¸¦ U_AMÀ» ±âÁØÀ¸·Î sorting.
+  #  samp_EXSHP<-samp_EXSHP[order(-samp_EXSHP$U_AM),]    # samp_EXSHP?? U_AMï¿½ï¿½ ????ï¿½ï¿½?? sorting.
   
-  samp_SHP<-subset(RAW_ShpInfo,ID == DATA_ID[j,1])     #RAW_ShpInfo ¿¡¼­ ID°¡ 05072ÀÎ DATA¸¸ »Ì±â 
+  samp_SHP<-subset(RAW_ShpInfo,ID == DATA_ID[j,1])     #RAW_ShpInfo ???? ID?? 05072?? DATA?? ?Ì±? 
   #  samp_SHP<-samp_SHP[order(-samp_SHP$BUY_AM),]
   
-  #samp_BIZUNT<-table(samp_SHP$BIZ_UNIT)        # 05072°¡ °¡´Â ¾÷Á¾ÀÇ ºóµµ (05072´Â ´ëÇü¸¶Æ®¿Í ¹éÈ­Á¡À» ÀÚÁÖ°£´Ù.)
+  #samp_BIZUNT<-table(samp_SHP$BIZ_UNIT)        # 05072?? ???? ??ï¿½ï¿½?? ???? (05072?? ??????Æ®?? ??È­ï¿½ï¿½ï¿½ï¿½ ???Ö°???.)
   
   if (nrow(samp_SHP) != 0 && nrow(samp_EXSHP) != 0)
   { 
@@ -69,7 +69,7 @@ for (j in 1:nrow(DATA_ID))
       NAME_PD$SUM[i] <- sum_temp1
     }
     
-    NAME_PD<-NAME_PD[order(-NAME_PD$SUM),]    # NAME_PD¸¦ SUMÀ» ±âÁØÀ¸·Î sorting. 
+    NAME_PD<-NAME_PD[order(-NAME_PD$SUM),]    # NAME_PD?? SUMï¿½ï¿½ ????ï¿½ï¿½?? sorting. 
     
     if(j==1)
     {
@@ -80,7 +80,7 @@ for (j in 1:nrow(DATA_ID))
       BEST_SHP[j,]<-NAME_PD[1,]
     }
     
-    # samp_EXSHP¿¡¼­ °¡Àå ¸¹Àº µ·À» »ç¿ëÇÑ BIZ_UNIT ÃßÃâ 
+    # samp_EXSHP???? ???? ??ï¿½ï¿½ ??ï¿½ï¿½ ?????? BIZ_UNIT ???? 
     
     NAME_EXSHP <- data.frame(names(table(samp_EXSHP$BIZ_UNIT)))
     
@@ -92,7 +92,7 @@ for (j in 1:nrow(DATA_ID))
       NAME_EXSHP$SUM[i] <- sum_temp2
     }
   
-    NAME_EXSHP<-NAME_EXSHP[order(-NAME_EXSHP$SUM),]    # NAME_EXSHP¸¦ SUMÀ» ±âÁØÀ¸·Î sorting. 
+    NAME_EXSHP<-NAME_EXSHP[order(-NAME_EXSHP$SUM),]    # NAME_EXSHP?? SUMï¿½ï¿½ ????ï¿½ï¿½?? sorting. 
     ######
     if(j==1)
     {
@@ -135,13 +135,13 @@ beforecluster<-na.omit(beforecluster)
 kmean.beforecluster<-kmeans(beforecluster,4,nstart=10)
 round(sum(kmean.beforecluster$withinss),2) 
 
-install.packages("fpc")        # ÆÐÅ°Áö ÀÎ½ºÅç
+install.packages("fpc")        # ??Å°?? ?Î½???
 install.packages("mclust")
 
-library(fpc)                            # ÀÎ½ºÅçÇÑ ÆÐÅ°Áö¸¦ ºÒ·¯¿À±â
+library(fpc)                            # ?Î½????? ??Å°???? ?Ò·??ï¿½ï¿½?
 library(mclust)
 
-pamk.result <- pamk(iris2)        # pamkÇÔ¼ö¿¡ µ¥ÀÌÅÍ¸¦ ³Ö¾î¼­ ºÐ·ùÇÏ°í °á°ú¸¦ pamk.result º¯¼ö¿¡ ÀúÀåÇÏ±â
+pamk.result <- pamk(iris2)        # pamk?Ô¼??? ?????Í¸? ?Ö¾î¼­ ?Ð·??Ï°? ?????? pamk.result ?????? ?????Ï±?
 
 # number of clusters               
 
@@ -157,18 +157,18 @@ y<-names(table(BEST_EXSHP[1]))
 
 SHP_EXSHP <-table(SHP_EXSHP)
 z <-as.integer(SHP_EXSHP)
-#B01 ÂÓ B02 ÂÓ 
+#B01 ?? B02 ?? 
 xx<-factor(rep(x,9), levels=x)   # OK
 yy<-factor(rep(y,each=148), levels=y)
 
 library(scatterplot3d)
 scatterplot3d(xx,yy,z,x.ticklabs = c("",x,""),y.ticklabs = c("",y,""),type="h")
 
-#Á¦ÀÏ ³ôÀº°Ô ¿©¼ºÀÇ·ù¶û B03
+#ï¿½ï¿½?? ??ï¿½ï¿½?? ?????Ç·??? B03
 
 
 
-###############################################¹æÀÚ
+###############################################????
 
 library(dplyr)
 
@@ -182,50 +182,50 @@ data3<-RAW_EXShpInfo
 data4<-RAW_ProdInfo
 
 
-# °¢ °³ÀÎ ¾÷Á¾º° µµ¼ö ¼¼¼­ / ¼ºº°, 
+# ?? ???? ??ï¿½ï¿½?? ???? ???? / ????, 
 
 
-bp1 <- aggregate(data3$U_AM~data3$ID, data3, sum) #¼îÇÎ ¾÷Á¾ »ç¶÷º° ÃÑ¾×
-bp2 <- aggregate(data2$BUY_AM~data2$ID, data2, sum) #¼îÇÎ ¿Ü ¾÷Á¾ »ç¶÷º° ÃÑ¾×
+bp1 <- aggregate(data3$U_AM~data3$ID, data3, sum) #???? ??ï¿½ï¿½ ?????? ?Ñ¾?
+bp2 <- aggregate(data2$BUY_AM~data2$ID, data2, sum) #???? ?? ??ï¿½ï¿½ ?????? ?Ñ¾?
 colnames(bp1) <- c("ID","BUY_AM")
 colnames(bp2) <- c("ID","BUY_AM")
 
-#bptable => °í°´ º° ¼îÇÎ¾÷Á¾, ¼îÇÎ ¿Ü ¾÷Á¾, ÀüÃ¼ / ÀÇ ÇÕ
+#bptable => ?ï¿½ï¿½ï¿½ ?? ???Î¾?ï¿½ï¿½, ???? ?? ??ï¿½ï¿½, ??Ã¼ / ?? ??
 bptable <- merge(data1, bp1, by="ID", all="TRUE")               
 bptable <- merge(bptable, bp2, by="ID", all="TRUE")
-bptable <- rename(bptable, SHOP_AM=BUY_AM.x , NOSHOP_AM = BUY_AM.y)   #º¯¼ö 
+bptable <- rename(bptable, SHOP_AM=BUY_AM.x , NOSHOP_AM = BUY_AM.y)   #???? 
 bptable[is.na(bptable$SHOP_AM), "SHOP_AM"] = 0
 bptable[is.na(bptable$NOSHOP_AM), "NOSHOP_AM"] = 0                      
 bptable$TOTAL_AM <- bptable$SHOP_AM+bptable$NOSHOP_AM       
 
 
-sum(bptable$TOTAL_AM==0)    #±¸¸Å µ¥ÀÌÅÍ°¡ ¾ø´Â 105°³ÀÇ µ¥ÀÌÅÍ Á¸Àç
+sum(bptable$TOTAL_AM==0)    #???? ?????Í°? ???? 105???? ?????? ï¿½ï¿½??
 
 
-bpt <- subset(bptable, select =c("ID","TOTAL_AM"))    #ÀüÃ¼ ÃÑ ¾× ÀÛÀº ¼ø Á¤·Ä
+bpt <- subset(bptable, select =c("ID","TOTAL_AM"))    #??Ã¼ ?? ?? ??ï¿½ï¿½ ?? ï¿½ï¿½??
 bpt <- bpt[c(order(bpt$TOTAL_AM)),]
 
-plot(bpt$TOTAL_AM) # ÀüÃ¼ ±¸¸Å·Â ºÐÆ÷  => ÆÄ·¹Åä ¹ýÄ¢ À¯»ç
-bpt2 <- bpt[-c(20000),]    # 0Á¦°Å
-bpt2 <- bpt2[-c(1:105),]    # ÀÌ»óÄ¡ Á¦°Å
-plot(bpt2$TOTAL_AM) # ÀÌ»óÄ¡ Á¦°Å ÈÄ ºÐÆ÷ => »óÀ§ 10% Å©°Ô ´Ù¸¥ => ´õ ¼¼¹ÐÇÑ ºÐ¼® ÇÊ¿ä 
+plot(bpt$TOTAL_AM) # ??Ã¼ ???Å·? ????  => ?Ä·??? ??Ä¢ ï¿½ï¿½??
+bpt2 <- bpt[-c(20000),]    # 0ï¿½ï¿½??
+bpt2 <- bpt2[-c(1:105),]    # ?Ì»?Ä¡ ï¿½ï¿½??
+plot(bpt2$TOTAL_AM) # ?Ì»?Ä¡ ï¿½ï¿½?? ?? ???? => ??ï¿½ï¿½ 10% Å©?? ?Ù¸? => ?? ?????? ?Ð¼? ?Ê¿? 
 
 head(bpt2)
 tail(bpt2)
 
 sp_r <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.995, 1)  #seperate ratio
-nsp_r <- quantile(bpt2$TOTAL_AM, sp_r) #³ª´²Áø ºñÀ²ÀÇ °ª
+nsp_r <- quantile(bpt2$TOTAL_AM, sp_r) #?????? ??ï¿½ï¿½?? ??
 nsp_r <- data.frame(nsp_r)
 nsp_r <- nsp_r$nsp_r
 
-sb1 <- subset(bpt, subset=(bpt$TOTAL_AM)>=11093848)   # »óÀ§ 10%
-sum(sb1$TOTAL_AM/10000)/sum(bpt$TOTAL_AM/10000)  # »óÀ§ 10%°¡ ÀüÃ¼ ±¸¸Å Â÷Áö ºñÁß 54%
-sb2 <- subset(bpt, subset=(bpt$TOTAL_AM)>=6534938)   # »óÀ§ 20%
-sum(sb2$TOTAL_AM/10000)/sum(bpt$TOTAL_AM/10000)  # »óÀ§ 20%°¡ ÀüÃ¼ ±¸¸Å Â÷Áö ºñÁß 70%   ÆÄ·¹Åä¹ýÄ¢ ¾î´ÀÁ¤µµ
+sb1 <- subset(bpt, subset=(bpt$TOTAL_AM)>=11093848)   # ??ï¿½ï¿½ 10%
+sum(sb1$TOTAL_AM/10000)/sum(bpt$TOTAL_AM/10000)  # ??ï¿½ï¿½ 10%?? ??Ã¼ ???? ???? ???? 54%
+sb2 <- subset(bpt, subset=(bpt$TOTAL_AM)>=6534938)   # ??ï¿½ï¿½ 20%
+sum(sb2$TOTAL_AM/10000)/sum(bpt$TOTAL_AM/10000)  # ??ï¿½ï¿½ 20%?? ??Ã¼ ???? ???? ???? 70%   ?Ä·?????Ä¢ ????ï¿½ï¿½??
 
 
 
-bptable$gn <- ifelse(bptable$TOTAL_AM > nsp_r[19],1,    #group number·Î ºÐ·ù(»óÀ§ 0.5%, 1ÆÛ, 2ÆÛ, .... 10ÆÛ, 20ÆÛ, 30ÆÛ, ... ÇÏÀ§ 10ÆÛ±îÁö
+bptable$gn <- ifelse(bptable$TOTAL_AM > nsp_r[19],1,    #group number?? ?Ð·?(??ï¿½ï¿½ 0.5%, 1??, 2??, .... 10??, 20??, 30??, ... ??ï¿½ï¿½ 10?Û±???
                      ifelse(bptable$TOTAL_AM > nsp_r[18],2,
                             ifelse(bptable$TOTAL_AM > nsp_r[17],3,
                                    ifelse(bptable$TOTAL_AM > nsp_r[16],4,
@@ -247,37 +247,37 @@ bptable$gn <- ifelse(bptable$TOTAL_AM > nsp_r[19],1,    #group number·Î ºÐ·ù(»óÀ
 
 table(bptable$gn)
 
-bptable$grp <- ifelse(bptable$TOTAL_AM == 0, 4,               #¾ø´Â °Í : 4
+bptable$grp <- ifelse(bptable$TOTAL_AM == 0, 4,               #???? ?? : 4
                       ifelse(bptable$NOSHOP_AM == 0,1,        #only shop : 1
                              ifelse(bptable$SHOP_AM == 0, 2 ,3)))  # only noshop : 2, shop&noshop : 3
 
-compshop <- filter(bptable, bptable$grp ==3 )  # ¼¯ÀÎ °Í
-compshop$rate <- compshop$SHOP_AM/(compshop$TOTAL_AM)  # ÀüÃ¼ Áß shopÀÇ ºñÀ²
+compshop <- filter(bptable, bptable$grp ==3 )  # ???? ??
+compshop$rate <- compshop$SHOP_AM/(compshop$TOTAL_AM)  # ??Ã¼ ?? shop?? ??ï¿½ï¿½
 compshop <- subset(compshop, select=c("ID","rate"))
 
 
-bptable1 <- merge(bptable, compshop, by="ID", all="TRUE")   # ºñÀ² ÇÕÄ£,  ³ª¸ÓÁö´Â °áÃø°ªÀ¸·Î 
+bptable1 <- merge(bptable, compshop, by="ID", all="TRUE")   # ??ï¿½ï¿½ ??Ä£,  ???????? ??????ï¿½ï¿½?? 
 
 
 lbadata <- merge(data2,data4, c("BIZ_UNIT","PD_S_C"))
 lbadata2 <- merge(bptable1, lbadata,by="ID", all="TRUE")
 
 
-lbadata2$daytype <- as.integer(as.Date(as.character(lbadata2$DE_DT), "%Y%m%d"))%%7   # ¼ýÀÚ => Date Å¸ÀÔÀ¸·Î
-#À²¸®¿ì½º ¼ýÀÚ ÀÌ¿ë 7·Î ³ª´«, 4->¿ù¿äÀÏ 0-> ¸ñ¿äÀÏ 1-> ±Ý¿äÀÏ
+lbadata2$daytype <- as.integer(as.Date(as.character(lbadata2$DE_DT), "%Y%m%d"))%%7   # ???? => Date Å¸??ï¿½ï¿½??
+#ï¿½ï¿½???ì½º ???? ?Ì¿? 7?? ????, 4->?????? 0-> ?????? 1-> ?Ý¿???
 
 lbadata2$timetype <- ifelse(lbadata2$DE_HR <=5, 1, ifelse(lbadata2$DE_HR <= 11, 2, ifelse(lbadata2$DE_HR <= 17, 3, 4)))   
-#½Ã°£ ¿ÀÀü(6~11) ³·(12~17) Àú³á(18~23) »õº®(0~5)
+#?Ã°? ????(6~11) ??(12~17) ????(18~23) ????(0~5)
 table(lbadata2$timetype)      #Ã¼Å©
 
 
 
 
-# ÇØ¾ßÇÒ °Í : ¿ùº°·Î »Ì±â, bp °íÄ¡±â,  test1 mergeÇØ¼­  À§¿¡ bpºÎºÐ!
+# ?Ø¾??? ?? : ?????? ?Ì±?, bp ??Ä¡??,  test1 merge?Ø¼?  ï¿½ï¿½?? bp?Îº?!
 
 
 
 
-####################¿¬½À
+####################????
 
 test <-select(total_shp,'ID')
