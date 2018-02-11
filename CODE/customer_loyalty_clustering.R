@@ -27,9 +27,5 @@ qplot(BUY, freq, colour = cluster, data = customer.loyalty)
 
 
 
-
-
 hc <- hclust(dist(customer.loyalty[2:3]), method = "ave")
 plot(hc, hang = -1, labels = customer.loyalty$ID)
-
-
