@@ -1,5 +1,5 @@
 #그룹별 관심 사항 분석
-
+library(dplyr)
 
 
 shp.customer.merge <- merge(shpInfo, customer.loyalty, by = "ID", rm.na = T)
@@ -106,9 +106,11 @@ barplot(table(cluster2.analysis$AGE_PRD), main="Age of Cluster2")
 barplot(table(cluster3.analysis$AGE_PRD), main="Age of Cluster3")
 barplot(table(cluster4.analysis$AGE_PRD), main="Age of Cluster4")
 
-
-
-
-
+#cluster1 category merge
+cluster1.tmp$PD_S_C <- as.factor(cluster1.tmp$PD_S_C)
+category$PD_S_C <- as.factor(category$PD_S_C)
+cluster1.tmp <- left_join(cluster1.tmp, category, by.x = intersect("BIZ_UNIT", "PS_S_C"))
+cluster1.tmp[cluster1.tmp$PD_H_NM == "?", ] <- NA
+cluster1.tmp <- na.omit(cluster1.tmp)
 
 
