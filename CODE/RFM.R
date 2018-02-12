@@ -63,15 +63,15 @@ shpInfo.A05.rfm <- shpInfo.A05 %>%
             frequenci = length(ID), monitery = sum(BUY_AM)/length(ID))
 summary(shpInfo.A05.rfm)
 
+###
 
 
-
-shpInfo.A01.rfm <- rfm_auto(shpInfo.A01, payment = "BUY_AM", date = "DE_DT", id = "ID")
+shpInfo.A01.rfm <- rfm_auto(shpInfo.A01, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
 str(shpInfo.A01.rfm$rfm)
 shpInfo.A01.rfm$breaks
 shpInfo.A01.rfm$classes
 shpInfo.A01.rfm$get_table()
-shpInfo.A01.rfm$get_sliced_rfm()
+table(shpInfo.A01.rfm$get_sliced_rfm()$RecencyClass)
 
 
 
