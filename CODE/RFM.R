@@ -17,7 +17,6 @@ shpInfo$PD_M_NM <- as.factor(shpInfo$PD_M_NM)
 shpInfo$DE_DT <- as.character(shpInfo$DE_DT)
 shpInfo$DE_DT <- as.Date(shpInfo$DE_DT, format = "%Y%m%d")
 
-
 # 업종별로 데이터 분리
 shpA01 <- shpInfo[shpInfo$BIZ_UNIT == 'A01', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
 shpA02 <- shpInfo[shpInfo$BIZ_UNIT == 'A02', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
@@ -121,4 +120,7 @@ for(i in 1:3){
     }
   }
 }
+
+
+
 

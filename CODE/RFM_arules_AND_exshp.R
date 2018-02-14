@@ -5,7 +5,38 @@ library(arulesViz)
 library(dummies)
 
 
-# arules를 위한 transaction matrix 생성
+createSectorTransaction <- function(sector){
+  sector <- sector[, c("ID","PD_M_NM", "DE_DT")]
+  sector <- na.omit(sector)
+  sector <-  cbind(sector[,c("ID","DE_DT")],
+                    dummy(sector$PD_M_NM, sep = ""))
+  cols <- c()
+  for( i in colnames(sector)){
+    if(nchar(i) > 31){
+      i <- substr(i, 32, nchar(i))
+    }
+    cols <- c(cols,i)
+  }
+  colnames(sector) <- cols  
+  
+  sector <- aggregate(. ~ ID + DE_DT, 
+                       data = sector,
+                       FUN = sum)
+  
+  sector <- sector[, -c(1, 2)] #ID  DATE 제거
+  
+  sector <- sector[rowSums(sector) > 0,]  
+  sector[sector > 1] <- 1 
+  sector <- as(as.matrix(sector), "transactions")
+  return(sector)
+}
+
+
+
+
+
+
+# rfm data를 arules를 위한 transaction matrix으로 변환 
 createTransaction <- function(sectors,rfmData){
   rfmData <- merge(eval(parse(text = sectors))[,c("ID", "PD_M_NM", "DE_DT")],
                 rfmData[,c(1,2)],
@@ -17,8 +48,8 @@ createTransaction <- function(sectors,rfmData){
                     dummy(rfmData$PD_M_NM, sep = ""))
   cols <- c()
   for( i in colnames(rfmData)){
-    if(nchar(i) > 7){
-      i <- substr(i, 8, nchar(i))
+    if(nchar(i) > 47){
+      i <- substr(i, 48, nchar(i))
     }
     cols <- c(cols,i)
   }
@@ -36,13 +67,18 @@ createTransaction <- function(sectors,rfmData){
   return(rfmData)
 }
 
+
+
+
+
 #분석 예제
+x <- sector
 x <- createTransaction(A05, shpA05.rec1.freq1.mone1)
 class(x)
 summary(x)
 inspect(x[1:10])
 itemFrequency(x, type = 'absolute')
-itemFrequencyPlot(x, support = 0.1, main = "item frequency plot above support 10%")
+itemFrequencyPlot(x, support = 0.05, main = "item frequency plot above support 10%")
 
 
 
