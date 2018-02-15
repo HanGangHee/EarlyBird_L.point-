@@ -6,11 +6,13 @@ matrixForTFIDF <- function(sectors,rfmData){
   rfmData <- rfmData[, c("ID","PD_M_NM")]
   rfmData <- na.omit(rfmData)
   rfmData <-  cbind(rfmData[,c("ID", "PD_M_NM")],
-                    dummy(rfmData$PD_M_NM, sep = ""))
+                    dummy(rfmData$PD_M_NM, sep = ","))
+  
   cols <- c()
   for( i in colnames(rfmData)){
-    if(nchar(i) > 7){
-      i <- substr(i, 8, nchar(i))
+    if((i != "ID") & (i != "PD_M_NM")){
+      i <- strsplit(i, ",")
+      i <- i[[1]][2]
     }
     cols <- c(cols,i)
   }
@@ -22,11 +24,11 @@ matrixForTFIDF <- function(sectors,rfmData){
   rfmData <- rfmData[, -c(1)] #ID  DATE 제거
   
   rfmData <- rfmData[rowSums(rfmData) > 0,]  
-  rfmData <- as.data.frame(t(rfmData))
   return(rfmData)
 }
 
-#for(i in 1:length(rfmData$`2`)){
-#  tf = sum(rfmData[i, ])
-#}
-#rowSums(rfmData)
+# margin 문제 해결
+par("mar")
+par(mai=c(1,2,1,1))
+temp <- matrixForTFIDF(A05, shpA05.rec1.freq1.mone2)
+barplot(head(sort(colSums(temp), decreasing = T), 20), horiz = T, las = 1)

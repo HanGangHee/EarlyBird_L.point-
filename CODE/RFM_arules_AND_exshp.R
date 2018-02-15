@@ -9,11 +9,12 @@ createSectorTransaction <- function(sector){
   sector <- sector[, c("ID","PD_M_NM", "DE_DT")]
   sector <- na.omit(sector)
   sector <-  cbind(sector[,c("ID","DE_DT")],
-                    dummy(sector$PD_M_NM, sep = ""))
+                    dummy(sector$PD_M_NM, sep = ","))
   cols <- c()
   for( i in colnames(sector)){
-    if(nchar(i) > 31){
-      i <- substr(i, 32, nchar(i))
+    if((i != "ID") & (i != "DE_DT")){
+      i <- strsplit(i, ",")
+      i <- i[[1]][2]
     }
     cols <- c(cols,i)
   }
@@ -45,11 +46,12 @@ createTransaction <- function(sectors,rfmData){
   rfmData <- rfmData[, c("ID","PD_M_NM", "DE_DT")]
   rfmData <- na.omit(rfmData)
   rfmData <-  cbind(rfmData[,c("ID","DE_DT")],
-                    dummy(rfmData$PD_M_NM, sep = ""))
+                    dummy(rfmData$PD_M_NM, sep = ","))
   cols <- c()
   for( i in colnames(rfmData)){
-    if(nchar(i) > 47){
-      i <- substr(i, 48, nchar(i))
+    if((i != "ID") & (i != "DE_DT")){
+      i <- strsplit(i, ",")
+      i <- i[[1]][2]
     }
     cols <- c(cols,i)
   }
@@ -73,7 +75,7 @@ createTransaction <- function(sectors,rfmData){
 
 #분석 예제
 x <- sector
-x <- createTransaction(A05, shpA05.rec1.freq1.mone1)
+x <- createTransaction(A05, shpA05.rec1.freq1.mone2)
 class(x)
 summary(x)
 inspect(x[1:10])

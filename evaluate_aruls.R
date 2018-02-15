@@ -39,3 +39,4 @@ summary(temp.rules)
 inspect(sort(temp.rules, by = "lift"))
 inspect(sort(temp.rules, by = "confidence"))
 inspect(sort(temp.rules, by = "support"))
+
