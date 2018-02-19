@@ -14,15 +14,18 @@ shpInfo <- total_shp
 #shpInfo 전처리
 shpInfo$ID <- as.factor(shpInfo$ID)
 shpInfo$PD_M_NM <- as.factor(shpInfo$PD_M_NM)
+shpInfo$PD_H_NM <- as.factor(shpInfo$PD_H_NM)
+
 shpInfo$DE_DT <- as.character(shpInfo$DE_DT)
 shpInfo$DE_DT <- as.Date(shpInfo$DE_DT, format = "%Y%m%d")
 
 # 업종별로 데이터 분리
-shpA01 <- shpInfo[shpInfo$BIZ_UNIT == 'A01', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
-shpA02 <- shpInfo[shpInfo$BIZ_UNIT == 'A02', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
-shpA03 <- shpInfo[shpInfo$BIZ_UNIT == 'A03', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
-shpA04 <- shpInfo[shpInfo$BIZ_UNIT == 'A04', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
-shpA05 <- shpInfo[shpInfo$BIZ_UNIT == 'A05', c('ID', 'DE_DT', 'BUY_AM', 'PD_M_NM')]
+shp <- shpInfo[, c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
+shpA01 <- shpInfo[shpInfo$BIZ_UNIT == 'A01', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
+shpA02 <- shpInfo[shpInfo$BIZ_UNIT == 'A02', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
+shpA03 <- shpInfo[shpInfo$BIZ_UNIT == 'A03', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
+shpA04 <- shpInfo[shpInfo$BIZ_UNIT == 'A04', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
+shpA05 <- shpInfo[shpInfo$BIZ_UNIT == 'A05', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
 
 
 # 업종별로 이용하는 고객의 수 
@@ -33,6 +36,7 @@ length(unique(shpA04$ID))
 length(unique(shpA05$ID))
 
 #  recency frequency manetary  모두 3개 기준으로 segmentation 진해
+shp.rfm <- rfm_auto(shp, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
 shpA01.rfm <- rfm_auto(shpA01, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
 shpA02.rfm <- rfm_auto(shpA02, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
 shpA03.rfm <- rfm_auto(shpA03, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
@@ -40,13 +44,27 @@ shpA04.rfm <- rfm_auto(shpA04, payment = "BUY_AM", date = "DE_DT", id = "ID", br
 shpA05.rfm <- rfm_auto(shpA05, payment = "BUY_AM", date = "DE_DT", id = "ID", breaks = list(r=3, f=3,m=3))
 
 
-
+entire <- "shp"
 A01 <- "shpA01"
 A02 <- "shpA02"
 A03 <- "shpA03"
 A04 <- "shpA04"
 A05 <- "shpA05"
 
+# shp 27개로 segment
+for(i in 1:3){
+  for(j in 1:3){
+    for(k in 1:3){
+      name <- entire
+      name <- paste(name, paste(".rec",i, sep = ""), sep = "")
+      name <- paste(name, paste(".freq",j, sep = ""), sep = "")
+      name <- paste(name, paste(".mone",k, sep = ""), sep = "")
+      assign(name, shp.rfm$rfm[shp.rfm$rfm$RecencyClass == i &
+                                    shp.rfm$rfm$FrequencyClass == j &
+                                    shp.rfm$rfm$MonetaryClass == k, ])
+    }
+  }
+}
 # A01 27개로 segment
 for(i in 1:3){
   for(j in 1:3){

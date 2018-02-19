@@ -26,14 +26,12 @@ shpA05.arules <- apriori(data = createSectorTransaction(shpA05),
                                           confidence = 0.20,
                                           minlen = 2))
 
-temp.rules <- apriori(data = createTransaction(A05, shpA05.rec2.freq2.mone2),
+temp.rules <- apriori(data = shp.rec1.freq1.mone1.transaction,
                          parameter = list(support = 0.01,
-                                          confidence = 0.20,
+                                          confidence = 0.10,
                                           minlen = 2))
-nchar("createSectorTransaction(shpA05)")
 
 #temp.rules에 확인하고 싶은 rule을 본다.
-temp.rules <- shpA05.arules
 
 summary(temp.rules)
 inspect(sort(temp.rules, by = "lift"))
