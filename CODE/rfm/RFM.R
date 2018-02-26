@@ -28,6 +28,7 @@ shpA04 <- shpInfo[shpInfo$BIZ_UNIT == 'A04', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM
 shpA05 <- shpInfo[shpInfo$BIZ_UNIT == 'A05', c('ID', 'DE_DT', 'BUY_AM', 'PD_H_NM')]
 
 
+
 # 업종별로 이용하는 고객의 수 
 length(unique(shpA01$ID))
 length(unique(shpA02$ID))

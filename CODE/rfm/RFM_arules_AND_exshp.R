@@ -168,7 +168,7 @@ rfmWithExShp <- function(rfmData){
                    by = "ID",
                    all.x = T))
   rfmData <- rfmData[, c("ID", "BIZ_UNIT")]
-  #table(rfmData$BIZ_UNIT)
+  barplot(table(rfmData$BIZ_UNIT))
   return(rfmData)
 }
 
